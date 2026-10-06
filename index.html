@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mandar Vaidya — AI consultant</title>
+<meta name="description" content="I help teams decide what AI is worth building, define what good output means, and hold scope through delivery.">
+<meta property="og:title" content="Mandar Vaidya — AI consultant">
+<meta property="og:description" content="AI evaluation, governance and delivery. I help teams decide what AI is worth building and prove it works before it ships.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#25423A">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%2325423A%22/><text x=%2250%22 y=%2268%22 font-size=%2252%22 text-anchor=%22middle%22 fill=%22%23EAE8E2%22 font-family=%22Arial%22 font-weight=%22700%22>MV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#E2E0D8;--panel:#D8D5CC;--ink:#13161A;--ink-2:#3A3F46;--soft:#61666E;
+  --rule:#C3C0B6;--rule-2:#ABA79C;--pine:#25423A;--pine-2:#1A2F29;
+  --clay:#A2431E;--lime:#BDC94E;
+  --pad:clamp(1.15rem,4vw,2.5rem);--maxw:1160px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--ground);color:var(--ink);
+  font-family:'Archivo',system-ui,sans-serif;font-size:16px;line-height:1.58;overflow-x:hidden;
+  background-image:linear-gradient(var(--rule) 1px,transparent 1px),linear-gradient(90deg,var(--rule) 1px,transparent 1px);
+  background-size:64px 64px;background-position:-1px -1px;
+}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 90% 60% at 50% 0%,transparent 18%,var(--ground) 76%)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);position:relative;z-index:1}
+a{color:inherit}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+:focus-visible{outline:2px solid var(--clay);outline-offset:3px;border-radius:2px}
+
+.bar{position:sticky;top:0;z-index:80;background:color-mix(in srgb,var(--ground) 90%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule-2)}
+.bar-in{max-width:var(--maxw);margin:0 auto;padding:.72rem var(--pad);display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mark{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:.76rem;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.mark i{width:8px;height:8px;background:var(--clay);border-radius:1px;animation:pulse 2.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.nav{display:flex;gap:1.25rem;align-items:center}
+.nav a{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.11em;text-transform:uppercase;text-decoration:none;color:var(--soft);padding-bottom:3px;border-bottom:1px solid transparent;transition:color .18s,border-color .18s}
+.nav a:hover,.nav a:focus-visible{color:var(--ink);border-color:var(--clay)}
+.nav a.cta{color:var(--ink);border:1px solid var(--rule-2);padding:.42rem .75rem;border-radius:2px;background:var(--panel)}
+.nav a.cta:hover{background:var(--pine);color:#EAE8E2;border-color:var(--pine)}
+.prog{position:absolute;left:0;bottom:-1px;height:2px;background:var(--clay);width:0}
+
+.hero{padding:clamp(3rem,9vw,6.5rem) 0 clamp(2rem,5vw,3.25rem)}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.69rem;letter-spacing:.17em;text-transform:uppercase;color:var(--soft);margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:.45rem .9rem;align-items:center}
+.eyebrow b{font-weight:600;color:var(--ink)}
+.eyebrow s{text-decoration:none;color:var(--rule-2)}
+h1{font-weight:800;font-size:clamp(2.3rem,7.2vw,4.6rem);line-height:1.02;letter-spacing:-.038em;max-width:18ch}
+h1 em{font-style:normal;color:var(--clay)}
+.lede{margin-top:1.5rem;max-width:55ch;font-size:clamp(1.01rem,2.1vw,1.16rem);color:var(--ink-2)}
+.lede b{color:var(--ink);font-weight:600}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem}
+.btn{font-family:'IBM Plex Mono',monospace;font-size:.73rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:.75rem 1.2rem;border-radius:2px;border:1px solid var(--pine);transition:transform .18s,background .18s,color .18s}
+.btn.solid{background:var(--pine);color:#EAE8E2}
+.btn.solid:hover{transform:translateY(-2px);background:var(--pine-2)}
+.btn.ghost{background:transparent;color:var(--pine)}
+.btn.ghost:hover{transform:translateY(-2px);background:var(--panel)}
+
+.reveal{opacity:0;transform:translateY(15px);animation:rise .72s cubic-bezier(.2,.75,.3,1) forwards}
+.d1{animation-delay:.04s}.d2{animation-delay:.14s}.d3{animation-delay:.25s}.d4{animation-delay:.36s}.d5{animation-delay:.48s}
+@keyframes rise{to{opacity:1;transform:none}}
+.obs{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.75,.3,1)}
+.obs.in{opacity:1;transform:none}
+
+.ledger{margin-top:clamp(2.25rem,5vw,3.5rem);background:var(--pine);color:#EAE8E2;border-radius:4px;overflow:hidden;box-shadow:0 24px 55px -38px rgba(19,22,26,.8)}
+.ledger-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem 1rem;padding:.9rem 1.2rem;border-bottom:1px solid rgba(234,232,226,.15);font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase}
+.ledger-head b{font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:.42rem;opacity:.68}
+.chip i{width:6px;height:6px;border-radius:50%;background:var(--lime);display:block}
+.row{border-bottom:1px solid rgba(234,232,226,.09)}
+.row:last-child{border-bottom:0}
+.row-btn{width:100%;background:none;border:0;color:inherit;cursor:pointer;text-align:left;display:grid;grid-template-columns:3.6rem 1fr 1.5rem;align-items:start;gap:.6rem;padding:1.05rem 1.2rem;font-family:'Archivo',sans-serif;font-size:clamp(.97rem,2.3vw,1.13rem);font-weight:500;line-height:1.4;transition:background .18s}
+.row-btn:hover,.row-btn:focus-visible{background:rgba(234,232,226,.055)}
+.rid{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;opacity:.5;padding-top:.28rem}
+.caret{justify-self:end;font-family:'IBM Plex Mono',monospace;font-size:1rem;opacity:.45;transition:transform .28s cubic-bezier(.2,.75,.3,1);padding-top:.1rem}
+.row[data-open="1"] .caret{transform:rotate(135deg)}
+.row[data-open="1"]{background:rgba(234,232,226,.035)}
+.rbody{display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s cubic-bezier(.2,.75,.3,1)}
+.row[data-open="1"] .rbody{grid-template-rows:1fr}
+.rbody>div{overflow:hidden}
+.rinner{padding:0 1.2rem 1.3rem calc(3.6rem + 1.2rem + .6rem);max-width:66ch;font-size:.93rem;color:rgba(234,232,226,.7)}
+.rinner b{color:#EAE8E2;font-weight:600}
+.tag{display:inline-block;margin-bottom:.6rem;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:#DDA07C;border:1px solid rgba(221,160,124,.38);padding:.16rem .45rem;border-radius:2px}
+
+section{padding:clamp(2.75rem,7vw,5rem) 0}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--rule-2);margin-bottom:2rem;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(1.1rem,2.9vw,1.42rem);font-weight:700;letter-spacing:-.022em}
+.sec-head .count{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+
+.engs{display:grid;gap:.9rem;grid-template-columns:1fr}
+.eng{background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:1.4rem;display:flex;flex-direction:column;gap:.55rem;transition:transform .22s cubic-bezier(.2,.75,.3,1),border-color .22s,box-shadow .22s}
+.eng:hover{transform:translateY(-3px);border-color:var(--pine);box-shadow:0 16px 32px -26px rgba(19,22,26,.6)}
+.eng-k{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--clay)}
+.eng h3{font-size:1.14rem;font-weight:700;letter-spacing:-.018em;line-height:1.25}
+.eng p{font-size:.92rem;color:var(--ink-2)}
+
+.cases{display:grid;gap:1rem}
+.case{background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:clamp(1.2rem,3.4vw,1.85rem);transition:transform .22s cubic-bezier(.2,.75,.3,1),border-color .22s,box-shadow .22s}
+.case:hover{transform:translateY(-3px);border-color:var(--pine);box-shadow:0 18px 36px -28px rgba(19,22,26,.6)}
+.case h3{font-size:clamp(1.18rem,3.2vw,1.5rem);font-weight:700;letter-spacing:-.026em;margin-bottom:.5rem}
+.case-sub{color:var(--ink-2);max-width:62ch;margin-bottom:1.1rem;font-size:.96rem}
+.stack{display:flex;flex-wrap:wrap;gap:.32rem;margin-bottom:1.2rem}
+.stack span{font-family:'IBM Plex Mono',monospace;font-size:.66rem;background:rgba(37,66,58,.08);border:1px solid rgba(37,66,58,.18);padding:.2rem .45rem;border-radius:2px;color:var(--pine-2)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem;margin:0 0 1.2rem}.stat{background:var(--ground);border:1px solid var(--rule);border-radius:3px;padding:.75rem .85rem}.stat b{display:block;font-size:1.45rem;font-weight:800;letter-spacing:-.03em;color:var(--clay);line-height:1.1}.stat span{display:block;line-height:1.35;margin-top:.35rem;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.grid2{display:grid;gap:1.05rem;grid-template-columns:1fr}
+.fld h4{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin-bottom:.35rem;font-weight:500}
+.fld p{font-size:.91rem;line-height:1.55}
+.fld.out{border-left:2px solid var(--clay);padding-left:.85rem}
+.fld.out h4{color:var(--clay)}
+
+.posts{display:grid;border-top:1px solid var(--rule)}
+.post-link{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:.35rem 1.4rem;padding:1.3rem .25rem;border-bottom:1px solid var(--rule);text-decoration:none;transition:padding-left .22s,background .22s}
+.post-link:hover,.post-link:focus-visible{padding-left:.95rem;background:rgba(37,66,58,.05)}
+.post-link h3{font-size:clamp(1rem,2.5vw,1.2rem);font-weight:600;letter-spacing:-.015em;max-width:46ch}
+.post-meta{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);white-space:nowrap}
+.post-blurb{grid-column:1/-1;color:var(--ink-2);font-size:.9rem;max-width:64ch;margin-top:.25rem}
+
+.article{display:none;padding:clamp(1.75rem,5vw,3.5rem) 0 4.5rem}
+body[data-view="article"] .article{display:block}
+body[data-view="article"] main.home{display:none}
+.back{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--soft);text-decoration:none;display:inline-block;margin-bottom:1.8rem;border-bottom:1px solid transparent}
+.back:hover{color:var(--ink);border-color:var(--clay)}
+.article h1{font-size:clamp(1.75rem,5vw,2.85rem);max-width:24ch;letter-spacing:-.03em}
+.article .post-meta{display:block;margin-bottom:1.2rem}
+.abody{max-width:68ch;margin-top:1.9rem;font-size:1.02rem;line-height:1.72}
+.abody p{margin-bottom:1.2rem}
+.abody h2{font-size:1.26rem;font-weight:700;letter-spacing:-.02em;margin:2.4rem 0 .75rem}
+.abody blockquote{border-left:2px solid var(--clay);padding-left:1.1rem;margin:1.5rem 0;color:var(--ink-2)}
+.abody ul,.abody ol{margin:0 0 1.2rem 1.15rem}
+.abody li{margin-bottom:.5rem}
+.fig{margin:2rem 0;background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:1.2rem 1rem .9rem}
+.fig svg{width:100%;height:auto;display:block}
+.fig figcaption{margin-top:.85rem;padding-top:.7rem;border-top:1px solid var(--rule);font-family:'IBM Plex Mono',monospace;font-size:.68rem;line-height:1.5;letter-spacing:.03em;color:var(--soft)}
+.svg-l{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;fill:var(--soft)}
+.svg-t{font-family:'Archivo',sans-serif;font-size:13px;font-weight:600;fill:var(--ink)}
+.svg-w{font-family:'Archivo',sans-serif;font-size:12px;fill:#EAE8E2}
+
+.contact{background:var(--pine);color:#EAE8E2;margin-top:1.5rem}
+.contact .sec-head{border-color:rgba(234,232,226,.2)}
+.contact h2{color:#EAE8E2}
+.contact .count{color:rgba(234,232,226,.55)}
+.c-lede{font-size:clamp(1.25rem,3.4vw,1.85rem);max-width:24ch;font-weight:700;letter-spacing:-.03em;line-height:1.15}
+.c-sub{margin-top:1rem;max-width:50ch;color:rgba(234,232,226,.74);font-size:1rem}
+.links{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.8rem}
+.links a{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(234,232,226,.3);padding:.68rem 1.1rem;border-radius:2px;transition:background .18s,color .18s,border-color .18s,transform .18s}
+.links a:hover,.links a:focus-visible{background:#EAE8E2;color:var(--pine-2);border-color:#EAE8E2;transform:translateY(-2px)}
+.links a.primary{background:#EAE8E2;color:var(--pine-2);border-color:#EAE8E2}
+.links a.primary:hover{background:var(--lime);border-color:var(--lime)}
+.avail{margin-top:1.8rem;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.08em;color:rgba(234,232,226,.6);display:flex;align-items:center;gap:.5rem}
+.avail i{width:6px;height:6px;border-radius:50%;background:var(--lime);display:block}
+
+footer{padding:1.9rem 0;border-top:1px solid var(--rule)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+
+@media(min-width:640px){.grid2{grid-template-columns:1fr 1fr}}
+@media(min-width:760px){
+  .engs{grid-template-columns:1fr 1fr}
+  .row-btn{grid-template-columns:4.4rem 1fr 1.5rem}
+  .rinner{padding-left:calc(4.4rem + 1.2rem + .6rem)}
+  .fig{padding:1.5rem 1.4rem 1.1rem}
+}
+@media(min-width:1000px){.engs{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:560px){
+  .nav{gap:.85rem}.nav a{font-size:.65rem}.nav a.cta{padding:.38rem .6rem}
+  .rinner{padding-left:1.2rem}
+  body{background-size:44px 44px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .reveal,.obs{opacity:1;transform:none}.prog{display:none}
+}
+</style>
+</head>
+<body data-view="home">
+
+<div class="bar">
+  <div class="bar-in">
+    <a href="#top" class="mark" data-home><i></i>M. Vaidya</a>
+    <nav class="nav">
+      <a href="#engagements">Engagements</a>
+      <a href="#work">Work</a>
+      <a href="#writing">Writing</a>
+      <a href="#contact" class="cta">Get in touch</a>
+    </nav>
+  </div>
+  <div class="prog" id="prog"></div>
+</div>
+
+<main class="home" id="top">
+
+  <div class="wrap hero">
+    <div class="eyebrow reveal d1">
+      <b>Mandar Vaidya</b><s>/</s><span>AI Consultant</span><s>/</s><span>UTC+5:30</span>
+    </div>
+    <h1 class="reveal d2">I help teams decide what AI is <em>actually worth building</em>.</h1>
+    <p class="lede reveal d3">
+      Most projects fail at definition, not implementation — the stated request and the real need drift apart, and nobody finds out until delivery. <b>I close that gap.</b> Discovery with the people who'll use the thing, specifications engineers can build from, and scope held steady until it ships.
+    </p>
+    <div class="hero-cta reveal d4">
+      <a href="#contact" class="btn solid">Start a conversation</a>
+      <a href="#engagements" class="btn ghost">How I work</a>
+    </div>
+
+    <div class="ledger reveal d5">
+      <div class="ledger-head">
+        <b>Four ways AI projects go wrong</b>
+        <span class="chip"><i></i>And what I do about each</span>
+      </div>
+
+      <div class="row" data-open="0">
+        <button class="row-btn" aria-expanded="false">
+          <span class="rid mono">F-01</span><span>The stated request isn't the actual need.</span><span class="caret">+</span>
+        </button>
+        <div class="rbody"><div><div class="rinner">
+          <span class="tag">What happens</span>
+          <p>A stakeholder asks for a chatbot. What they need is for four teams to stop maintaining the same spreadsheet. The chatbot gets built, it works, and nobody uses it.<br><br>
+          <b>What I do:</b> discovery before scoping. I interview the people who'd actually use the thing, trace the workflow as it really runs, and separate the request from the problem underneath it. Sometimes the answer isn't AI at all — and that's a finding worth paying for, not a failed engagement.</p>
+        </div></div></div>
+      </div>
+
+      <div class="row" data-open="0">
+        <button class="row-btn" aria-expanded="false">
+          <span class="rid mono">F-02</span><span>Nobody defined what "good output" means.</span><span class="caret">+</span>
+        </button>
+        <div class="rbody"><div><div class="rinner">
+          <span class="tag">What happens</span>
+          <p>The team ships, reads ten outputs, and decides it seems fine. Three months later a prompt change quietly breaks 15% of cases and there's no signal that anything moved.<br><br>
+          <b>What I do:</b> define acceptance criteria before the build starts, in language the business can sign off on. What counts as correct, what counts as unacceptable, and how you'll know next quarter. If you can't write it down, you can't ship it responsibly.</p>
+        </div></div></div>
+      </div>
+
+      <div class="row" data-open="0">
+        <button class="row-btn" aria-expanded="false">
+          <span class="rid mono">F-03</span><span>The demo worked. Production didn't.</span><span class="caret">+</span>
+        </button>
+        <div class="rbody"><div><div class="rinner">
+          <span class="tag">What happens</span>
+          <p>Models are confidently wrong in ways that pass every format check. I've watched one return plausible, well-formed financial figures that were entirely invented — no error, no warning, clean logs.<br><br>
+          <b>What I do:</b> pressure-test feasibility before commitment. Where does a wrong answer cost you? What happens when the data source fails? I've built and run production systems myself, so when I tell you six weeks is optimistic, I've been on both sides of that estimate.</p>
+        </div></div></div>
+      </div>
+
+      <div class="row" data-open="0">
+        <button class="row-btn" aria-expanded="false">
+          <span class="rid mono">F-04</span><span>Nobody owned scope.</span><span class="caret">+</span>
+        </button>
+        <div class="rbody"><div><div class="rinner">
+          <span class="tag">What happens</span>
+          <p>Every stakeholder adds one reasonable request. Individually they're all fine. Together they push delivery two quarters and nobody can point at the decision that did it.<br><br>
+          <b>What I do:</b> hold the line, in writing, without losing the stakeholder. Changes get costed against the timeline before they're accepted. Saying no is most of the job, and doing it well is why people ask me back.</p>
+        </div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="engagements">
+    <div class="wrap">
+      <div class="sec-head obs"><h2>How to work with me</h2><span class="count mono">04 engagements</span></div>
+      <div class="engs">
+        <div class="eng obs">
+          <span class="eng-k">Engagement 01</span>
+          <h3>Discovery sprint</h3>
+          <p>Stakeholder interviews, workflow mapping, and a feasibility read on the use case. Ends with a clear recommendation — including "don't build this."</p>
+        </div>
+        <div class="eng obs">
+          <span class="eng-k">Engagement 02</span>
+          <h3>Solution design</h3>
+          <p>Requirements your engineering team can build from. Scope, acceptance criteria, data dependencies, and the risks worth naming up front.</p>
+        </div>
+        <div class="eng obs">
+          <span class="eng-k">Engagement 03</span>
+          <h3>Evaluation framework</h3>
+          <p>A written definition of what good output means for your use case, with a scoring approach your team can run on every release.</p>
+        </div>
+        <div class="eng obs">
+          <span class="eng-k">Engagement 04</span>
+          <h3>Delivery oversight</h3>
+          <p>Ongoing scope control on an in-flight project. I sit between the business and the build team and keep the two versions of the plan the same one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="sec-head obs"><h2>Selected work</h2><span class="count mono">Four engagements</span></div>
+      <div class="cases">
+        <article class="case obs">
+          <h3>AI evaluation platform — the release gate</h3>
+          <p class="case-sub">An enterprise GenAI evaluation platform I built as sole product owner, from concept to MVP. It became the mandatory go/no-go gate every AI model passes before production.</p>
+          <div class="stats"><div class="stat"><b>3</b><span>models blocked from production</span></div><div class="stat"><b>~65%</b><span>less manual evaluation effort</span></div><div class="stat"><b><2 hrs</b><span>reporting, down from days</span></div></div>
+          <div class="stack"><span>45+ metrics</span><span>RAG</span><span>Agents</span><span>Code generation</span><span>LLM-as-judge</span><span>DeepEval</span></div>
+          <div class="grid2">
+            <div class="fld"><h4>Context</h4><p>AI models were reaching production with no structured evaluation. Quality was judged by reading a handful of outputs, which meant regressions were found by users.</p></div>
+            <div class="fld"><h4>What I did</h4><p>Defined 45+ metrics across quality, safety and compliance, prioritised the 10 highest-risk (hallucination, PII exposure, dangerous operations), and built the pipeline from test generation to executive reporting.</p></div>
+            <div class="fld"><h4>The hard part</h4><p>Getting a metric set that the data, QA and business leads would all accept as the bar, then making it binding rather than advisory.</p></div>
+            <div class="fld out"><h4>Why it matters to you</h4><p>Evaluation stops being a feeling. A release either clears the bar or it doesn't, and you can show anyone why.</p></div>
+          </div>
+        </article>
+        <article class="case obs">
+          <h3>AI and automation portfolio delivery</h3>
+          <p class="case-sub">Discovery and delivery across a 10-project AI and RPA portfolio for a US enterprise, carried from opportunity identification through UAT to business readiness.</p>
+          <div class="stats"><div class="stat"><b>10</b><span>projects in portfolio</span></div><div class="stat"><b>3</b><span>automations live</span></div><div class="stat"><b>4.9x</b><span>first-year return, HR assistant case</span></div></div>
+          <div class="stack"><span>Discovery</span><span>Business cases</span><span>UAT</span><span>RPA design</span><span>Stakeholder management</span></div>
+          <div class="grid2">
+            <div class="fld"><h4>Context</h4><p>Separate AI and RPA tracks, competing for the same business owners, with no shared view of which opportunities were worth funding.</p></div>
+            <div class="fld"><h4>What I did</h4><p>Took three automations to production with three more in build, authored 15+ BRDs and process definitions, and built the use-case scoring framework and portfolio cost model leadership now funds against.</p></div>
+            <div class="fld"><h4>The hard part</h4><p>Bringing the RPA and AI tracks onto one cadence. The resistance was a reasonable fear that AI would crowd out RPA work, and it had to be answered, not overruled.</p></div>
+            <div class="fld out"><h4>Why it matters to you</h4><p>Most AI projects fail at definition. Scoping well is where budget is saved, usually more than the build costs.</p></div>
+          </div>
+        </article>
+        <article class="case obs">
+          <h3>Prompt governance for a multi-agent portfolio</h3>
+          <p class="case-sub">Architecture for governing prompts across nine production agents, so business owners control what changes before it goes live.</p>
+          
+          <div class="stack"><span>Versioning</span><span>Lineage</span><span>Approval gates</span><span>Drift detection</span></div>
+          <div class="grid2">
+            <div class="fld"><h4>Context</h4><p>Prompts were edited directly in production. A one-line change could alter an HR or legal agent's behaviour with no record and no sign-off.</p></div>
+            <div class="fld"><h4>What I did</h4><p>Designed versioning, lineage, approval gates and drift detection, giving HR, Legal and Supply Chain owners a controlled sign-off before any prompt change ships.</p></div>
+            <div class="fld"><h4>The hard part</h4><p>Making governance light enough that teams use it rather than route around it.</p></div>
+            <div class="fld out"><h4>Why it matters to you</h4><p>Prompts are production code. If you can't say who changed one and why, you can't defend the output.</p></div>
+          </div>
+        </article>
+        <article class="case obs">
+          <h3>Staged rollout for AI outputs</h3>
+          <p class="case-sub">A rollout model that lets teams reduce human checking of AI output only when the numbers justify it, not when the calendar says so.</p>
+          
+          <div class="stack"><span>Answer keys</span><span>Back-testing</span><span>Shadow runs</span><span>Sampling</span></div>
+          <div class="grid2">
+            <div class="fld"><h4>Context</h4><p>Teams either kept full manual review forever, which killed the ROI, or dropped it on a launch date, which killed trust.</p></div>
+            <div class="fld"><h4>What I did</h4><p>Designed four gated stages: held-out answer key, overnight back-test, shadow run with decaying human verification, then steady-state sampling. Each gate opens on measured accuracy.</p></div>
+            <div class="fld"><h4>The hard part</h4><p>Agreeing the accuracy thresholds with business owners before the first run, so nobody renegotiates them after seeing results.</p></div>
+            <div class="fld out"><h4>Why it matters to you</h4><p>You get the automation savings without betting the business on an untested model.</p></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="writing">
+    <div class="wrap">
+      <div class="sec-head obs"><h2>Writing</h2><span class="count mono">Notes from delivery</span></div>
+      <div class="posts obs" id="postList"></div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="sec-head obs"><h2>Work together</h2><span class="count mono">Reply within 24h</span></div>
+      <p class="c-lede obs">Bring me the problem, not the brief.</p>
+      <p class="c-sub obs">You don't need a specification to start. Tell me what isn't working and what you've already tried — I'll tell you whether AI is the right answer, and I'll say so plainly when it isn't.</p>
+      <div class="links obs">
+        <a href="mailto:vaidyamandar25@gmail.com" class="primary">Send an email</a>
+        <a href="https://www.upwork.com/freelancers/REPLACE" rel="noopener">Upwork</a>
+        <a href="https://www.linkedin.com/in/mandar-vaidya2503" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/mandarvaidya" rel="noopener">GitHub</a>
+      </div>
+      <p class="avail obs"><i></i>Taking on contract engagements</p>
+    </div>
+  </section>
+
+</main>
+
+<article class="article">
+  <div class="wrap">
+    <a href="#writing" class="back" data-back>&larr; All writing</a>
+    <span class="post-meta mono" id="artMeta"></span>
+    <h1 id="artTitle"></h1>
+    <div class="abody" id="artBody"></div>
+  </div>
+</article>
+
+<footer><div class="wrap foot"><span>Mandar Vaidya</span><span>AI consultant</span></div></footer>
+
+<script>
+/* ===== Add a post: append an object below. No build step. ===== */
+
+const FIG_DRIFT = `
+<figure class="fig">
+<svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two lines diverging from a shared starting point: what was asked for, and what was actually needed.">
+  <line x1="60" y1="215" x2="600" y2="215" stroke="var(--rule-2)" stroke-width="1"/>
+  <line x1="60" y1="35" x2="60" y2="215" stroke="var(--rule-2)" stroke-width="1"/>
+  <text class="svg-l" x="60" y="238">Kickoff</text>
+  <text class="svg-l" x="530" y="238">Delivery</text>
+  <path d="M60 130 L600 130" stroke="var(--pine)" stroke-width="2.5" fill="none"/>
+  <path d="M60 130 C 220 128, 340 96, 600 58" stroke="var(--clay)" stroke-width="2.5" fill="none" stroke-dasharray="6 5"/>
+  <line x1="600" y1="58" x2="600" y2="130" stroke="var(--clay)" stroke-width="1" stroke-dasharray="3 3"/>
+  <circle cx="60" cy="130" r="5" fill="var(--ink)"/>
+  <text class="svg-t" x="300" y="122" fill="var(--pine)">What was asked for</text>
+  <text class="svg-t" x="292" y="72" fill="var(--clay)">What was actually needed</text>
+  <text class="svg-l" x="470" y="100" fill="var(--clay)">the gap</text>
+</svg>
+<figcaption>The request is fixed at kickoff. The need keeps moving as people learn what they meant. Nobody measures the distance until delivery.</figcaption>
+</figure>`;
+
+const FIG_FUNNEL = `
+<figure class="fig">
+<svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A request passing through three discovery activities into a build or do-not-build decision.">
+  <rect x="20" y="125" width="120" height="50" rx="3" fill="var(--pine)"/>
+  <text class="svg-w" x="80" y="155" text-anchor="middle">The request</text>
+  <path d="M145 150 L180 150" stroke="var(--rule-2)" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="185" y="55" width="185" height="48" rx="3" fill="none" stroke="var(--rule-2)" stroke-width="1.5"/>
+  <text class="svg-t" x="277" y="84" text-anchor="middle">Talk to the users</text>
+  <rect x="185" y="126" width="185" height="48" rx="3" fill="none" stroke="var(--rule-2)" stroke-width="1.5"/>
+  <text class="svg-t" x="277" y="155" text-anchor="middle">Trace the real workflow</text>
+  <rect x="185" y="197" width="185" height="48" rx="3" fill="none" stroke="var(--rule-2)" stroke-width="1.5"/>
+  <text class="svg-t" x="277" y="226" text-anchor="middle">Cost a wrong answer</text>
+  <path d="M375 79 L410 140" stroke="var(--rule-2)" stroke-width="1.5"/>
+  <path d="M375 150 L410 150" stroke="var(--rule-2)" stroke-width="1.5"/>
+  <path d="M375 221 L410 160" stroke="var(--rule-2)" stroke-width="1.5"/>
+  <circle cx="425" cy="150" r="14" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
+  <text class="svg-l" x="425" y="155" text-anchor="middle" fill="var(--ink)">?</text>
+  <path d="M442 143 L490 108" stroke="var(--pine)" stroke-width="1.5"/>
+  <path d="M442 158 L490 192" stroke="var(--clay)" stroke-width="1.5"/>
+  <rect x="495" y="86" width="125" height="44" rx="3" fill="var(--pine)"/>
+  <text class="svg-w" x="557" y="113" text-anchor="middle">Build it</text>
+  <rect x="495" y="170" width="125" height="44" rx="3" fill="var(--clay)"/>
+  <text class="svg-w" x="557" y="197" text-anchor="middle">Don't build it</text>
+  <defs><marker id="a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 z" fill="var(--rule-2)"/></marker></defs>
+</svg>
+<figcaption>Discovery isn't a workshop. It's three questions, and either answer at the end is a valid result.</figcaption>
+</figure>`;
+
+const FIG_DRIFT2 = `
+<figure class="fig">
+<svg viewBox="0 0 640 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Output quality declining across releases, with and without a defined acceptance threshold.">
+  <line x1="55" y1="220" x2="610" y2="220" stroke="var(--rule-2)" stroke-width="1"/>
+  <line x1="55" y1="30" x2="55" y2="220" stroke="var(--rule-2)" stroke-width="1"/>
+  <text class="svg-l" x="8" y="60">High</text>
+  <text class="svg-l" x="12" y="215">Low</text>
+  <text class="svg-l" x="55" y="243">v1</text><text class="svg-l" x="190" y="243">v2</text>
+  <text class="svg-l" x="325" y="243">v3</text><text class="svg-l" x="460" y="243">v4</text>
+  <text class="svg-l" x="580" y="243">v5</text>
+  <line x1="55" y1="120" x2="610" y2="120" stroke="var(--clay)" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text class="svg-l" x="470" y="112" fill="var(--clay)">Acceptance threshold</text>
+  <polyline points="60,62 195,68 330,96 465,140 590,178" fill="none" stroke="var(--pine)" stroke-width="2.5"/>
+  <circle cx="60" cy="62" r="4" fill="var(--pine)"/><circle cx="195" cy="68" r="4" fill="var(--pine)"/>
+  <circle cx="330" cy="96" r="4" fill="var(--pine)"/>
+  <circle cx="465" cy="140" r="6" fill="var(--clay)"/>
+  <circle cx="590" cy="178" r="4" fill="var(--pine)"/>
+  <line x1="465" y1="140" x2="465" y2="185" stroke="var(--clay)" stroke-width="1" stroke-dasharray="3 3"/>
+  <text class="svg-l" x="404" y="203" fill="var(--clay)">caught here</text>
+  <text class="svg-l" x="120" y="50">nobody notices any of this</text>
+</svg>
+<figcaption>Quality rarely falls off a cliff. It sags — and without a written threshold, there's no moment where anyone is obliged to look.</figcaption>
+</figure>`;
+
+const FIG_SCOPE = `
+<figure class="fig">
+<svg viewBox="0 0 640 265" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Four small reasonable change requests cumulatively pushing a delivery date far to the right.">
+  <text class="svg-l" x="20" y="26">Original plan</text>
+  <rect x="20" y="36" width="250" height="24" rx="2" fill="var(--pine)"/>
+  <line x1="270" y1="30" x2="270" y2="215" stroke="var(--pine)" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text class="svg-l" x="20" y="84">+ "just add export"</text>
+  <rect x="20" y="94" width="250" height="18" rx="2" fill="var(--pine)" opacity=".28"/>
+  <rect x="270" y="94" width="62" height="18" rx="2" fill="var(--clay)" opacity=".55"/>
+  <text class="svg-l" x="20" y="132">+ "and one more source"</text>
+  <rect x="20" y="142" width="312" height="18" rx="2" fill="var(--pine)" opacity=".28"/>
+  <rect x="332" y="142" width="85" height="18" rx="2" fill="var(--clay)" opacity=".7"/>
+  <text class="svg-l" x="20" y="180">+ "compliance wants an audit log"</text>
+  <rect x="20" y="190" width="397" height="18" rx="2" fill="var(--pine)" opacity=".28"/>
+  <rect x="417" y="190" width="163" height="18" rx="2" fill="var(--clay)"/>
+  <line x1="580" y1="185" x2="580" y2="222" stroke="var(--clay)" stroke-width="1.5"/>
+  <text class="svg-l" x="500" y="240" fill="var(--clay)">actual delivery</text>
+  <text class="svg-l" x="215" y="240" fill="var(--pine)">promised</text>
+</svg>
+<figcaption>No single request was unreasonable. That's the point — the cost only exists in the sum, and nobody is looking at the sum.</figcaption>
+</figure>`;
+
+const POSTS = [
+  {
+    slug:"the-hour-you-decide-not-to-build",
+    title:"The most valuable hour in an AI project is the one where you decide not to build",
+    date:"2026-08-10", read:"6 min",
+    blurb:"Nobody puts a killed project in a case study. They should — it's usually the highest-return hour anyone billed.",
+    body:`
+<p>A stakeholder asks for a chatbot. It's a reasonable ask. They've seen a demo, they have a budget line, and they want it by Q3.</p>
+<p>Six weeks of discovery later, the actual problem turns out to be that four teams maintain overlapping versions of the same spreadsheet and none of them trusts the others' numbers. A chatbot answering questions about untrusted data produces confident answers about untrusted data — faster, and with more authority than before.</p>
+<h2>Why this keeps happening</h2>
+<p>The request arrives as a solution, not a problem. By the time it reaches the people who'd build it, someone has already decided what to build, usually based on something they saw work elsewhere in a context they couldn't see the inside of.</p>
+${FIG_DRIFT}
+<p>Nobody is being unreasonable here. The stakeholder is describing what they can picture. The engineers are building what they were asked for. The gap is structural, and it only closes if someone is explicitly responsible for closing it.</p>
+<blockquote>The request is fixed at kickoff. The need keeps moving. Everyone downstream inherits the difference.</blockquote>
+<h2>What discovery actually is</h2>
+<p>Not a workshop. Not a requirements document written from the kickoff call. Three questions, asked properly:</p>
+${FIG_FUNNEL}
+<ul>
+<li><strong>Talk to the people who'd use it,</strong> not only the people who requested it. These are rarely the same people, and they rarely describe the same problem.</li>
+<li><strong>Trace the workflow as it actually runs,</strong> including the workarounds. The workarounds <em>are</em> the requirements — they're where people already solved the problem badly because nobody gave them a better option.</li>
+<li><strong>Find where a wrong answer costs something.</strong> If the system is confidently wrong, who notices, and how long does it take? If the answer is "nobody, eventually," you have a bigger problem than model quality.</li>
+</ul>
+<h2>The uncomfortable part</h2>
+<p>Sometimes the finding is that the project shouldn't happen. That's hard to deliver, especially when you're paid by the person whose idea it was.</p>
+<p>But do the arithmetic. A two-week discovery that kills a bad project saves a six-month build, the opportunity cost of the team who'd have built it, and the slow institutional damage of shipping something nobody adopts. The organisation learns "AI didn't work for us" — a lesson that costs far more than it appears to, and shows up on no invoice.</p>
+<h2>How to make it survivable</h2>
+<p>Frame the outcome as a decision, not a verdict. You aren't telling someone their idea was bad. You're giving them information they didn't have when they had it.</p>
+<p>And bring the alternative: here's what would actually move the number you care about, and roughly what it costs. Nobody minds being told no when they leave the room with something better than what they walked in with.</p>
+`
+  },
+  {
+    slug:"defining-good-output-before-you-build",
+    title:"Define what good output means before you build, not after you ship",
+    date:"2026-08-17", read:"7 min",
+    blurb:"If you can't write down what correct looks like, you can't tell whether last week's prompt change broke anything.",
+    body:`
+<p>Ask a team how they know their AI feature is working and you'll usually get some version of: we looked at the outputs and they seemed fine.</p>
+<p>That's not a quality bar. That's a vibe, sampled once, by people who wanted it to pass.</p>
+<h2>The failure is silent by design</h2>
+<p>Model quality doesn't collapse. It sags. Someone tightens a prompt to fix one edge case and quietly degrades a category nobody was watching. The outputs still look well-formed. They're still confident. They're just worse.</p>
+${FIG_DRIFT2}
+<p>Without a written threshold, there is no moment when anyone is obliged to look. The degradation is discovered by a customer, months later, and by then you can't tell which change caused it because twelve changes have shipped since.</p>
+<h2>Write the criteria first</h2>
+<p>Before anything is built, the business needs to sign off on three statements:</p>
+<ol>
+<li><strong>What counts as correct.</strong> Not "helpful" or "accurate" — specific enough that two people reading the same output would agree on the score.</li>
+<li><strong>What counts as unacceptable.</strong> The failures you'd escalate, not just the ones you'd sigh at. These usually differ by category: a wrong tone is annoying, a wrong number is a liability.</li>
+<li><strong>What you'd accept in aggregate.</strong> Ninety percent correct is either excellent or catastrophic depending entirely on what the remaining ten percent does.</li>
+</ol>
+<blockquote>If you can't write it down before the build, you won't be able to judge it after.</blockquote>
+<h2>The test set is the real deliverable</h2>
+<p>Fifty to a hundred cases, drawn from real inputs, labelled by someone who understands the domain. Include the edge cases people currently handle manually — those are the ones that will break first.</p>
+<p>This is unglamorous work and it's usually the first thing cut for time. It's also the only thing that turns "it feels worse" into a number that moves, and a number that moves is the difference between shipping and hoping.</p>
+<h2>A note on judge models</h2>
+<p>Using a model to score another model's output is efficient and it works — but the judge has its own biases. It tends to reward length, confidence, and formatting over correctness.</p>
+<p>Calibrate it before you trust it. Score a sample by hand, compare against the judge, and find out where they disagree. If you skip this you've built a measurement instrument nobody has checked against a known quantity, which is a comfortable way to be wrong at scale.</p>
+`
+  },
+  {
+    slug:"scope-control-without-losing-the-room",
+    title:"Scope control without losing the room",
+    date:"2026-08-24", read:"6 min",
+    blurb:"Every individual change request is reasonable. That's exactly why projects slip two quarters.",
+    body:`
+<p>No project has ever been derailed by an obviously bad idea. Bad ideas get rejected in the meeting.</p>
+<p>Projects slip because of a series of small, sensible, individually defensible requests, each added by someone acting in good faith, none of them costed against the whole.</p>
+${FIG_SCOPE}
+<h2>The structural problem</h2>
+<p>Each request is evaluated on its own merits, in isolation, by whoever it lands on. Nobody in that conversation is holding the running total. The person asking sees one addition. The person building sees one more thing. The cost only exists in the sum, and the sum is nobody's job.</p>
+<blockquote>Scope creep isn't a discipline failure. It's an accounting failure — nobody is keeping the ledger.</blockquote>
+<h2>Cost it before you accept it</h2>
+<p>The move is simple and almost nobody does it: every change gets a number attached before anyone says yes.</p>
+<p>Not a rejection. A price. "That's about two weeks — do you want it ahead of the reporting view, or after?" This converts an open-ended request into a trade-off, and trade-offs are decisions the stakeholder is genuinely qualified to make. Most of the time they'll deprioritise it themselves, which is a far better outcome than you saying no.</p>
+<h2>Make the ledger visible</h2>
+<p>Keep a running list of accepted changes and their cumulative cost, and show it in every status update. Not as an accusation — as a shared instrument.</p>
+<p>When the fourth request arrives and everyone can see that three previous ones have already consumed six weeks, the conversation changes on its own. You stop being the person blocking progress and become the person keeping the plan honest.</p>
+<h2>Saying no without becoming the obstacle</h2>
+<p>Three things make this survivable:</p>
+<ul>
+<li><strong>Never say no to the person.</strong> Say no to the timeline, and let them choose what moves.</li>
+<li><strong>Put it in writing the same day.</strong> A verbal "we'll see" becomes a commitment in someone's memory within a week.</li>
+<li><strong>Bring the alternative.</strong> If it can't be in v1, say when it can be. A deferred request feels very different from a refused one.</li>
+</ul>
+<p>Holding scope is most of the job. Doing it without damaging the relationship is why people ask you back.</p>
+`
+  }
+];
+
+const fmt=d=>new Date(d+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+document.getElementById("postList").innerHTML=POSTS.map(p=>`
+  <a class="post-link" href="#/writing/${p.slug}">
+    <h3>${p.title}</h3>
+    <span class="post-meta mono">${fmt(p.date)} · ${p.read}</span>
+    <p class="post-blurb">${p.blurb}</p>
+  </a>`).join("");
+
+document.querySelectorAll(".row-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const row=btn.closest(".row"),open=row.dataset.open==="1";
+    row.dataset.open=open?"0":"1";
+    btn.setAttribute("aria-expanded",String(!open));
+    btn.querySelector(".caret").textContent=open?"+":"\u00D7";
+  });
+});
+
+function route(){
+  const m=location.hash.match(/^#\/writing\/(.+)$/);
+  if(m){
+    const p=POSTS.find(x=>x.slug===m[1]);
+    if(p){
+      document.getElementById("artTitle").textContent=p.title;
+      document.getElementById("artMeta").textContent=fmt(p.date)+" \u00B7 "+p.read;
+      document.getElementById("artBody").innerHTML=p.body;
+      document.title=p.title+" \u2014 Mandar Vaidya";
+      document.body.dataset.view="article";window.scrollTo(0,0);return;
+    }
+  }
+  document.body.dataset.view="home";
+  document.title="Mandar Vaidya \u2014 AI consultant";
+}
+addEventListener("hashchange",route);route();
+
+document.querySelector("[data-back]").addEventListener("click",e=>{
+  e.preventDefault();location.hash="";
+  setTimeout(()=>document.getElementById("writing").scrollIntoView(),30);
+});
+document.querySelector("[data-home]").addEventListener("click",()=>{location.hash="";});
+
+const io=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}})},{rootMargin:"0px 0px -6% 0px",threshold:.06});
+document.querySelectorAll(".obs").forEach(el=>io.observe(el));
+
+const prog=document.getElementById("prog");
+let tick=false;
+addEventListener("scroll",()=>{
+  if(tick)return;tick=true;
+  requestAnimationFrame(()=>{
+    const h=document.documentElement.scrollHeight-innerHeight;
+    prog.style.width=(h>0?(scrollY/h)*100:0)+"%";tick=false;
+  });
+},{passive:true});
+</script>
+</body>
+</html>
